@@ -121,14 +121,44 @@ function createFancyNumberDisplay(number, isSpecial) {
     return display;
 }
 
+// Code Smell #17: Function with hardcoded sleep/delay simulation
+function fakeDelay() {
+    var x = 0;
+    for (var j = 0; j < 1000000; j++) {
+        x += Math.random();
+    }
+    return x;
+}
+
+// Progress bar generator
+function generateProgressBar(current, total) {
+    var percentage = Math.floor((current / total) * 100);
+    var filled = Math.floor(percentage / 5);
+    var empty = 20 - filled;
+    
+    var bar = "[";
+    for (var k = 0; k < filled; k++) {
+        bar += "█";
+    }
+    for (var m = 0; m < empty; m++) {
+        bar += "░";
+    }
+    bar += "]";
+    
+    return bar + " " + percentage + "%";
+}
+
 // Main counter function with clever console logging
 function startCounter() {
     printBanner();
     
     console.log("\n🚀 Starting the counter sequence...\n");
+    console.log("Progress: " + generateProgressBar(0, 50) + "\n");
     
     // Code Smell #9: Deeply nested loops
     for (var i = 1; i <= 50; i++) {
+        // Fake delay to simulate work
+        fakeDelay();
         // Call risky operation multiple times (inefficient)
         riskyOperation();
         riskyOperation();
@@ -168,9 +198,17 @@ function startCounter() {
         }
         if (i == 25) {
             console.log("     🎉 Halfway there!");
+            console.log("     Progress: " + generateProgressBar(i, 50));
         }
         if (i == 42) {
             console.log("     🌌 The Answer to Life, Universe, and Everything!");
+        }
+        
+        // Code Smell #18: Random unnecessary operations
+        if (i % 2 == 0) {
+            var tempArray = [1, 2, 3, 4, 5];
+            tempArray.reverse();
+            tempArray.sort();
         }
         
         // Code Smell #11: Unnecessary complexity
@@ -187,6 +225,14 @@ function startCounter() {
     }
     
     console.log("\n✅ Counter completed successfully!\n");
+    console.log("Final Progress: " + generateProgressBar(50, 50));
+    console.log("\n📊 Statistics:");
+    console.log("   • Total numbers counted: 50");
+    console.log("   • Divisible by 3: 16");
+    console.log("   • Divisible by 5: 10");
+    console.log("   • Divisible by 7: 7");
+    console.log("   • Special milestones reached: 3\n");
+    
     printFooter();
     
     // Code Smell #12: Function called but result ignored
@@ -228,3 +274,19 @@ function neverCalledFunction() {
 
 // Code Smell #16: Variable declared but never used
 var finalUnusedVariable = "goodbye";
+
+// Code Smell #19: Redeclaring variable in different scope
+var globalCounter = "redeclared!"; // Already declared earlier
+
+// Code Smell #20: Function that returns different types
+function inconsistentReturn(x) {
+    if (x > 10) {
+        return "string";
+    } else if (x > 5) {
+        return 123;
+    } else if (x > 0) {
+        return true;
+    } else {
+        return null;
+    }
+}
