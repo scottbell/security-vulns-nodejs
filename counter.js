@@ -77,7 +77,7 @@ function processNumber(num) {
         }
     } else if (num % 5 === 0) {
         if (num % 7 === 0) {
-            result = "Divisible by 5 and 7!";
+            result = "Divisible by 5  and 7!";
         } else {
             result = "Divisible by 5!";
         }
