@@ -25,7 +25,7 @@ var config_docker = {
 // Select correct config
 var config = null;
 
-var rad_dog = [];
+var rad_dog2 = [];
 
 switch (process.env.STAGE){
     case "DOCKER":
